@@ -179,11 +179,18 @@ static void print_abort_details(const void *f)
     panic_print_str(s_panic_abort_details);
 }
 
+__attribute__((weak)) void esp_panic_handler_user()
+{
+    // Do nothing, user can override
+}
+
 // Control arrives from chip-specific panic handler, environment prepared for
 // the 'main' logic of panic handling. This means that chip-specific stuff have
 // already been done, and panic_info_t has been filled.
 void esp_panic_handler(panic_info_t *info)
 {
+    esp_panic_handler_user();
+
     // If the exception was due to an abort, override some of the panic info
     if (g_panic_abort) {
         info->description = NULL;

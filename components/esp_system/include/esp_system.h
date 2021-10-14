@@ -289,6 +289,12 @@ typedef struct {
  */
 void esp_chip_info(esp_chip_info_t* out_info);
 
+/**
+ * @brief Handler which gets called after the chip specific handling of panics has been performed.
+ *
+ * This function can be overridden by defining your own implementation, as it is weakly linked from ESP-IDF.
+ */
+void esp_panic_handler_user();
 
 #if CONFIG_ESP32_ECO3_CACHE_LOCK_FIX
 /**
